@@ -1,0 +1,74 @@
+<!-- ======= Sidebar ======= -->
+<aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+        <!-- Menampilkan pesan sukses jika login berhasil -->
+        <?php if (session()->getFlashdata('redirect_success')): ?>
+            <div class="alert alert-success">
+                <?= session()->getFlashdata('redirect_success') ?>
+            </div>
+        <?php endif; ?>
+
+        <!-- Menampilkan pesan error jika login gagal -->
+        <?php if (session()->getFlashdata('error')): ?>
+            <div class="alert alert-danger">
+                <?= session()->getFlashdata('error') ?>
+            </div>
+        <?php endif; ?>
+
+        <li class="nav-item">
+            <a class="nav-link <?php echo (uri_string() == '') ? "" : "collapsed" ?>" href="/">
+                <i class="bi bi-grid"></i>
+                <span>Home</span>
+            </a>
+        </li><!-- End Home Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link <?php echo (uri_string() == 'keranjang') ? "" : "collapsed" ?>" href="keranjang">
+                <i class="bi bi-cart-check"></i>
+                <span>Keranjang</span>
+            </a>
+        </li><!-- End Keranjang Nav -->
+
+        <?php if (session()->get('role') == 'admin'): ?>
+            <li class="nav-item">
+                <a class="nav-link <?php echo (uri_string() == 'produk') ? "" : "collapsed" ?>" href="produk">
+                    <i class="bi bi-receipt"></i>
+                    <span>Produk</span>
+                </a>
+            </li><!-- End Produk Nav -->
+
+            <li class="nav-item">
+            <a class="nav-link <?php echo (uri_string() == 'produkkategori') ? "" : "collapsed" ?>" href="produkkategori">
+        <i class="bi bi-tags"></i>
+        <span>Produk Kategori</span>
+    </a>
+</li><!-- End Produk Kategori Nav -->
+
+        <?php endif; ?>
+
+        <li class="nav-item">
+            <a class="nav-link <?php echo (uri_string() == 'contact') ? "" : "collapsed" ?>" href="contact">
+                <i class="bi bi-envelope"></i>
+                <span>Contact</span>
+            </a>
+        </li><!-- End Contact Nav -->
+
+        <li class="nav-item">
+  <a class="nav-link <?= (uri_string() == 'faq') ? '' : 'collapsed' ?>" href="<?= base_url('faq') ?>">
+    <i class="bi bi-question-circle"></i>
+    <span>FAQ</span>
+  </a>
+</li>
+
+            <li class="nav-item">
+  <a class="nav-link <?= (uri_string() == 'profil') ? '' : 'collapsed' ?>" href="<?= base_url('profil') ?>">
+    <i class="bi bi-person"></i>
+    <span>Profil</span>
+  </a>
+</li>
+
+    </ul>
+
+</aside><!-- End Sidebar -->
