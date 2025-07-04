@@ -23,7 +23,6 @@ if(uri_string()!=""){
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-  
   <!-- Vendor CSS Files -->
   <link href="<?= base_url()?>NiceAdmin/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="<?= base_url()?>NiceAdmin/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
@@ -46,68 +45,14 @@ if(uri_string()!=""){
 </head>
 
 <body>
+<main>
 
-<?= $this->include('components/header') ?>
-
-  <?= $this->include('components/sidebar') ?>
-
-  <main id="main" class="main">
-
-  <?php if ($this->renderSection('pagetitle') != ''): ?>
-  <?= $this->renderSection('pagetitle') ?>
-<?php else: ?>
-  <div class="pagetitle">
-    <h1><?= $hlm ?></h1>
-    <nav>
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">Home</li>
-        <?php if ($hlm != "Home"): ?>
-          <li class="breadcrumb-item"><?= $hlm ?></li>
-        <?php endif; ?>
-      </ol>
-    </nav>
-  </div>
-<?php endif; ?>
-
-<!-- End Page Title -->
-
-    <section class="section">
-      <div class="row">
-        <div class="col-lg-12">
-
-          <div class="card">
-          <div class="card-body">
-  <h5 class="card-title"><?php echo $hlm?></h5>
-
-  <?php if (session()->getFlashdata('redirect_success')) : ?>
-  <div class="alert alert-success alert-dismissible fade show" role="alert">
-    <?= session()->getFlashdata('redirect_success') ?>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-<?php endif; ?>
-
-
-  <?= $this->renderSection('content') ?>
-  </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
+<?= $this->renderSection('content') ?>
 
   </main><!-- End #main -->
 
-  <?= $this->include('components/footer') ?>
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-
-  <!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!-- Select2 -->
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
   <!-- Vendor JS Files -->
   <script src="<?= base_url()?>NiceAdmin/assets/vendor/apexcharts/apexcharts.min.js"></script>
@@ -121,7 +66,7 @@ if(uri_string()!=""){
 
   <!-- Template Main JS File -->
   <script src="<?= base_url()?>NiceAdmin/assets/js/main.js"></script>
-<?= $this->renderSection('script') ?> 
+
 </body>
 
 </html>
