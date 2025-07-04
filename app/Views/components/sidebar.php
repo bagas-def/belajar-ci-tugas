@@ -40,6 +40,13 @@
             </li><!-- End Produk Nav -->
 
             <li class="nav-item">
+    <a class="nav-link <?php echo (uri_string() == 'profile') ? "" : "collapsed" ?>" href="profile">
+        <i class="bi bi-person"></i>
+        <span>Profile</span>
+    </a>
+</li><!-- End Profile Nav -->
+
+            <li class="nav-item">
             <a class="nav-link <?php echo (uri_string() == 'produkkategori') ? "" : "collapsed" ?>" href="produkkategori">
         <i class="bi bi-tags"></i>
         <span>Produk Kategori</span>
@@ -62,12 +69,6 @@
   </a>
 </li>
 
-            <li class="nav-item">
-  <a class="nav-link <?= (uri_string() == 'profil') ? '' : 'collapsed' ?>" href="<?= base_url('profil') ?>">
-    <i class="bi bi-person"></i>
-    <span>Profil</span>
-  </a>
-</li>
 
     </ul>
 
