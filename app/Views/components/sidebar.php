@@ -56,17 +56,17 @@
           <span>Manajemen Diskon</span>
         </a>
       </li>
+    <?php endif; ?>
 
+
+    <!-- Menu Umum -->
       <li class="nav-item">
         <a class="nav-link <?= (uri_string() == 'profile') ? '' : 'collapsed' ?>" href="<?= base_url('profile') ?>">
           <i class="bi bi-person"></i>
           <span>Profile</span>
         </a>
       </li>
-
-    <?php endif; ?>
-
-    <!-- Menu Umum -->
+      
     <li class="nav-item">
       <a class="nav-link <?= (uri_string() == 'contact') ? '' : 'collapsed' ?>" href="<?= base_url('contact') ?>">
         <i class="bi bi-envelope"></i>
