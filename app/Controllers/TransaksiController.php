@@ -31,18 +31,28 @@ class TransaksiController extends BaseController
         return view('v_keranjang', $data);
     }
 
-    public function cart_add()
-    {
-        $this->cart->insert(array(
-            'id'        => $this->request->getPost('id'),
-            'qty'       => 1,
-            'price'     => $this->request->getPost('harga'),
-            'name'      => $this->request->getPost('nama'),
-            'options'   => array('foto' => $this->request->getPost('foto'))
-        ));
-        session()->setflashdata('success', 'Produk berhasil ditambahkan ke keranjang. (<a href="' . base_url() . 'keranjang">Lihat</a>)');
-        return redirect()->to(base_url('/'));
-    }
+   public function cart_add()
+{
+    $hargaAsli = $this->request->getPost('harga');
+    $diskon = session()->get('diskon_aktif') ?? 0;
+    $hargaSetelahDiskon = max(0, $hargaAsli - $diskon); // pastikan tidak minus
+
+    $this->cart->insert(array(
+        'id'        => $this->request->getPost('id'),
+        'qty'       => 1,
+        'price'     => $hargaSetelahDiskon,
+        'name'      => $this->request->getPost('nama'),
+        'options'   => array(
+            'foto' => $this->request->getPost('foto'),
+            'harga_asli' => $hargaAsli,
+            'diskon' => $diskon
+        )
+    ));
+
+    session()->setFlashdata('success', 'Produk berhasil ditambahkan ke keranjang. (<a href="' . base_url() . 'keranjang">Lihat</a>)');
+    return redirect()->to(base_url('/'));
+}
+
 
     public function cart_clear()
     {
@@ -156,19 +166,25 @@ public function buy()
 
         $last_insert_id = $this->transaction->getInsertID();
 
-        foreach ($this->cart->contents() as $value) {
-            $dataFormDetail = [
-                'transaction_id' => $last_insert_id,
-                'product_id' => $value['id'],
-                'jumlah' => $value['qty'],
-                'diskon' => 0,
-                'subtotal_harga' => $value['qty'] * $value['price'],
-                'created_at' => date("Y-m-d H:i:s"),
-                'updated_at' => date("Y-m-d H:i:s")
-            ];
+        $diskon = session()->get('diskon_aktif') ?? 0;
 
-            $this->transaction_detail->insert($dataFormDetail);
-        }
+foreach ($this->cart->contents() as $value) {
+    $hargaAwal = $value['price'];
+    $hargaSetelahDiskon = max($hargaAwal - $diskon, 0); // pastikan tidak minus
+
+    $dataFormDetail = [
+        'transaction_id' => $last_insert_id,
+        'product_id' => $value['id'],
+        'jumlah' => $value['qty'],
+        'diskon' => $diskon,
+        'subtotal_harga' => $value['qty'] * $hargaSetelahDiskon,
+        'created_at' => date("Y-m-d H:i:s"),
+        'updated_at' => date("Y-m-d H:i:s")
+    ];
+
+    $this->transaction_detail->insert($dataFormDetail);
+}
+
 
         $this->cart->destroy();
  

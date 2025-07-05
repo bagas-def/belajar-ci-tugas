@@ -10,6 +10,12 @@ if (session()->getFlashData('success')) {
 <?php
 }
 ?>
+
+<?php if (session()->has('diskon_aktif')): ?>
+  <div class="alert alert-success">
+    <strong>Diskon Hari Ini:</strong> Rp <?= number_format(session('diskon_aktif'), 0, ',', '.') ?>
+  </div>
+<?php endif; ?>
 <!-- Table with stripped rows -->
 <div class="row">
     <?php foreach ($product as $key => $item) : ?>
