@@ -68,6 +68,18 @@
   </tbody>
 </table>
 
+<?php if (session()->getFlashdata('validation')): ?>
+  <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+    <ul class="mb-0">
+      <?php foreach (session()->getFlashdata('validation')->getErrors() as $error): ?>
+        <li><?= esc($error) ?></li>
+      <?php endforeach ?>
+    </ul>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  </div>
+<?php endif ?>
+
+
 <!-- Modal Tambah Diskon -->
 <div class="modal fade" id="modalTambah" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
